@@ -85,7 +85,7 @@ func (gChain *groupChains)runQuery(ctx context.Context){
             for appId,group := range gChain.e.groupMap{
                 for _,appRule := range group.rules{
                     if rule,ok := gChain.e.ruleMap[appRule.RuleId];!ok{
-                        log.Warnf("appId：%s has no ruleId:%d",appId, appRule.RuleId)
+                        log.Printf("appId：%s has no ruleId:%d",appId, appRule.RuleId)
                         continue
                     }else {
                         gChain.query <- &common.AlertReq{AppRule: appRule, Rule: rule}

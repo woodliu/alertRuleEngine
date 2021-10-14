@@ -4,19 +4,17 @@ import (
 	"context"
 	"fmt"
 	"github.com/sirupsen/logrus"
+	"github.com/woodliu/alertRuleEngine/pkg/engine"
+	tmpl "github.com/woodliu/alertRuleEngine/pkg/template"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
+	"log"
 	"os"
 	"os/signal"
-	"github.com/woodliu/alertRuleEngine/pkg/engine"
-	"log"
-	tmpl "github.com/woodliu/alertRuleEngine/pkg/template"
 	"syscall"
 
 	"github.com/woodliu/alertRuleEngine/pkg/config"
-	"github.com/woodliu/alertRuleEngine/pkg/template"
 	"gorm.io/driver/mysql"
-
 )
 
 const Path = "D:\\rules.yaml"
@@ -44,18 +42,18 @@ func main() {
 	c := make(chan os.Signal)
 	signal.Notify(c, syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT)
 	s := <-c
-	log.Infof("system shutdown by signal:[%s]",s.String())
+	log.Printf("system shutdown by signal:[%s]",s.String())
 	cancel()
 }
 
 func newDb(conf *config.Conf)*gorm.DB {
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=%s&parseTime=true&loc=Local",
-		conf.Username,
-		conf.Password,
-		conf.Host,
+		conf.DB.Username,
+		conf.DB.Password,
+		conf.DB.Host,
 		conf.Port,
-		conf.Database,
-		conf.Charset,
+		conf.DB.Database,
+		conf.DB.Charset,
 	)
 
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
@@ -65,5 +63,5 @@ func newDb(conf *config.Conf)*gorm.DB {
 	if err != nil {
 		logrus.Fatalf("failed to Open DB %s:%d, err:%v", conf.Host, conf.Port, err)
 	}
-	return &db
+	return db
 }

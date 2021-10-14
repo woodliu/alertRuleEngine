@@ -2,8 +2,8 @@ package engine
 
 import (
 	"fmt"
-	"gorm.io/gorm"
 	"github.com/woodliu/alertRuleEngine/pkg/common"
+	"gorm.io/gorm"
 )
 
 type Storage interface{

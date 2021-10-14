@@ -2,11 +2,11 @@ package engine
 
 import (
     "encoding/json"
-    "io/ioutil"
-    "net/http"
     "github.com/woodliu/alertRuleEngine/pkg/common"
     tmpl "github.com/woodliu/alertRuleEngine/pkg/template"
+    "io/ioutil"
     "log"
+    "net/http"
     "strconv"
 )
 
@@ -27,7 +27,7 @@ func ServeHttpRules(port int, storage Storage, reload chan struct{}, tmpl *tmpl.
     }
 
     go func() {
-        log.Infof("listen at 0.0.0.0:%d",port)
+        log.Printf("listen at 0.0.0.0:%d",port)
         if err := srv.ListenAndServe(); err != nil {
             log.Fatal(err.Error())
         }
@@ -51,7 +51,7 @@ func (h *httpServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
     path := r.URL.Path
     body,err := ioutil.ReadAll(r.Body)
     if nil != err {
-        log.Error(err)
+        log.Println(err)
         return
     }
     defer r.Body.Close()
@@ -59,7 +59,7 @@ func (h *httpServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
     var rule common.AppRule
     err = json.Unmarshal(body, &rule)
     if nil != err {
-        log.Error(err)
+        log.Println(err)
         return
     }
 
@@ -67,7 +67,7 @@ func (h *httpServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
     switch path {
     case ADD:
         if err := rule.Validate();nil != err{
-            log.Error(err)
+            log.Println(err)
             return
         }
 

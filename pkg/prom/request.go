@@ -4,16 +4,16 @@ package prom
 import (
     "context"
     "fmt"
+    "github.com/prometheus/client_golang/api"
     v1 "github.com/prometheus/client_golang/api/prometheus/v1"
     "github.com/prometheus/common/model"
-    "golang.org/x/time/rate"
     "github.com/woodliu/alertRuleEngine/pkg/common"
     "github.com/woodliu/alertRuleEngine/pkg/config"
     tmpl "github.com/woodliu/alertRuleEngine/pkg/template"
+    "golang.org/x/time/rate"
     "log"
     "strings"
     "time"
-    "github.com/prometheus/client_golang/api"
 )
 
 type Prom struct {
@@ -47,7 +47,7 @@ func (p *Prom)Run(ctx context.Context){
             case query := <- p.query:
                 alertResp,err := p.queryProm(ctx, *query)
                 if nil != err{
-                    log.Error(err)
+                    log.Println(err)
                     continue
                 }
                 p.receive <- alertResp
@@ -68,17 +68,17 @@ func (p *Prom)queryProm(ctx context.Context, query common.AlertReq)(*common.Aler
     }else{
         // use limiter
         if err := p.limiter.Wait(ctx);nil != err{
-            log.Error(err)
+            log.Println(err)
         }
 
         api := v1.NewAPI(client)
         val, warnings, err := api.Query(ctx, queryExpr, time.Now())
         if nil != err{
-            log.Errorf(err.Error())
+            log.Println(err.Error())
         }
 
         if 0 < len(warnings){
-            log.Warn(strings.Join(warnings," "))
+            log.Println(strings.Join(warnings," "))
         }
 
         switch val.Type() {

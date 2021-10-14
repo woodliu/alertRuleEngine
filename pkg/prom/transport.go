@@ -3,9 +3,9 @@ package prom
 import (
     "context"
     "fmt"
+    "github.com/woodliu/alertRuleEngine/pkg/common"
     "net"
     "net/http"
-    "github.com/woodliu/alertRuleEngine/pkg/common"
     "time"
 )
 

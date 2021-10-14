@@ -2,12 +2,12 @@ package engine
 
 import (
 	"context"
-	"log"
-	"net/http"
 	"github.com/woodliu/alertRuleEngine/pkg/common"
 	"github.com/woodliu/alertRuleEngine/pkg/config"
 	prom "github.com/woodliu/alertRuleEngine/pkg/prom"
 	tmpl "github.com/woodliu/alertRuleEngine/pkg/template"
+	"log"
+	"net/http"
 	"time"
 )
 
