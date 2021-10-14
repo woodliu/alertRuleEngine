@@ -1,0 +1,28 @@
+{
+  "port": 8000,
+  "db": {
+    "host": "192.168.118.148",
+    "port": 3306,
+    "username": "root",
+    "password": "root",
+    "database": "oms",
+    "charset": "utf8mb4"
+  },
+  "promConf": {
+    "limiter": {
+      "limit": 100,
+      "burst": 100
+    },
+    "prometheus":
+    [
+      {
+        "env": 4,
+        "addr": ""
+      },
+      {
+        "env": 2,
+        "addr": ""
+      }
+    ]
+  }
+}

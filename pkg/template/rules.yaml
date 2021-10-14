@@ -1,0 +1,21 @@
+group:
+  group_by: ['cluster', 'service']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 3h
+rules:
+  - name: "test alert"
+    expr: 'delta(kube_hpa_status_current_replicas[2m]) * on(hpa, namespace) group_left(label_app) kube_hpa_labels{label_app="$APP_ID"}'
+    id: 1
+    for: "1m"
+    labels:
+      severity: page
+    annotations:
+      summary: High request latency
+      summary1: High request latency1
+  - name: "etcd_server_leader_changes_seen_total alert"
+    expr: 'increase(etcd_server_leader_changes_seen_total[1h])'
+    id: 2
+    annotations:
+      summary: High request latency
+      summary1: High request latency1
