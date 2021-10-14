@@ -61,7 +61,7 @@ func newDb(conf *config.Conf)*gorm.DB {
 	})
 
 	if err != nil {
-		logrus.Fatalf("failed to Open DB %s:%d, err:%v", conf.Host, conf.Port, err)
+		logrus.Fatalf("failed to Open DB %s:%d, err:%v", conf.DB.Host, conf.Port, err)
 	}
 	return db
 }
