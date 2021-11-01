@@ -10,7 +10,7 @@ import (
 	"log"
 )
 
-const Path = "D:\\code\\gosrc\\src\\stash.weimob.com\\devops\\alertruleengine\\engine.json"
+const Path = "D:\\devops\\alertruleengine\\engine.json"
 
 func main() {
 	go func() {

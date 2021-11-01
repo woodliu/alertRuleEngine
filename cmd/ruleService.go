@@ -5,7 +5,7 @@ import (
     "github.com/woodliu/alertRuleEngine/pkg/svc"
     "log"
 )
-var path = "D:\\code\\gosrc\\src\\stash.weimob.com\\devops\\alertruleengine\\service.json"
+var path = "D:\\devops\\alertruleengine\\service.json"
 func main(){
     cfg,err := svc.LoadProxyCfg(path)
     if nil != err{
