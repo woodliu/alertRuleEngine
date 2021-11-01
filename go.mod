@@ -1,13 +1,12 @@
-module github.com/woodliu/alertRuleEngine
+module stash.weimob.com/devops/alertruleengine
 
 go 1.16
 
 require (
-	github.com/prometheus/client_golang v1.11.0
-	github.com/prometheus/common v0.26.0
-	github.com/sirupsen/logrus v1.6.0
-	golang.org/x/time v0.0.0-20210723032227-1f47c861a9ac
-	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b
-	gorm.io/driver/mysql v1.1.2
-	gorm.io/gorm v1.21.14
+	github.com/VictoriaMetrics/VictoriaMetrics v1.67.0
+	github.com/lithammer/go-jump-consistent-hash v1.0.2
+	google.golang.org/grpc v1.41.0
+	google.golang.org/protobuf v1.27.1
+	gopkg.in/yaml.v2 v2.4.0
+	stash.weimob.com/devops/go_common v0.0.0-20210913084221-4dcd44b34a95
 )

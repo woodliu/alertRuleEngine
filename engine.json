@@ -1,0 +1,9 @@
+{
+  "port": 8000,
+  "alert": {
+    "vmAlert": "http://vmalert1",
+    "receiver": "0.0.0.0:9093",
+
+    "rulesPath": "D:\\testRules\\*.rules"
+  }
+}
