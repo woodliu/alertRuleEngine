@@ -5,13 +5,13 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/woodliu/alertRuleEngine/pkg/proto"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/keepalive"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"sort"
-	"github.com/woodliu/alertRuleEngine/pkg/proto"
-	"log"
 	"sync"
 	"time"
 )
@@ -152,6 +152,7 @@ func (s Service) Add(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s Service)getGrpFromCluster(cs *ClusterSvc, req *proto.Rule)(*proto.ListResp,error,error,*[]proto.RequestClient){
+	var l sync.Mutex
 	var rs []*proto.Rule
 	var reqClits []proto.RequestClient
 	var errHappen bool
@@ -174,7 +175,9 @@ func (s Service)getGrpFromCluster(cs *ClusterSvc, req *proto.Rule)(*proto.ListRe
 
 			if nil != reply {
 				reqClits = append(reqClits, reqCli)
+				l.Lock()
 				rs = append(rs, reply.Res)
+				l.Unlock()
 			}
 		}(conn)
 	}
