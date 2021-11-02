@@ -3,8 +3,8 @@ package rule
 import (
 	vmCfg "github.com/VictoriaMetrics/VictoriaMetrics/app/vmalert/config"
 	"github.com/VictoriaMetrics/VictoriaMetrics/app/vmalert/datasource"
-	"os"
 	"github.com/woodliu/alertRuleEngine/pkg/proto"
+	"os"
 )
 
 type Rule struct {
@@ -42,7 +42,7 @@ func (r *Rule) flush(grp string) error {
 	}
 
 	tmpFile := r.mApp[grp].grp.File + ".tmp"
-	f, err := os.OpenFile(tmpFile, os.O_APPEND|os.O_CREATE|os.O_TRUNC, 0644)
+	f, err := os.Create(tmpFile)
 	if nil != err {
 		return err
 	}
