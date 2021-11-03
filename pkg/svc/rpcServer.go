@@ -3,13 +3,13 @@ package svc
 import (
 	"context"
 	"fmt"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/keepalive"
-	"net"
 	"github.com/woodliu/alertRuleEngine/pkg/comm"
 	"github.com/woodliu/alertRuleEngine/pkg/proto"
 	"github.com/woodliu/alertRuleEngine/pkg/rule"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/keepalive"
 	"log"
+	"net"
 	"sync"
 	"time"
 )
@@ -30,10 +30,10 @@ func StartRpcServer(handler *rule.Handler, dir string, delGrpCh chan string) {
 
 	enforcement := keepalive.EnforcementPolicy{
 		MinTime:             time.Minute,
-		PermitWithoutStream: true,
+		PermitWithoutStream: true, //TODO:如果客户端永久下线，可能会导致服务端连接残留，需要一定处理
 	}
 	grpcServer := grpc.NewServer(
-		grpc.KeepaliveEnforcementPolicy(enforcement), // here
+		grpc.KeepaliveEnforcementPolicy(enforcement),
 		grpc.KeepaliveParams(keepalive.ServerParameters{
 			Time: time.Minute,
 		}),
